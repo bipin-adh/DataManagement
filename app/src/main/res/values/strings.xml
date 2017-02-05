@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Data Management</string>
+    <string name="button_login">LOGIN</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="DataManagement">DATA MANAGEMENT</string>
+    <string name="textRegister">Not registered yet?</string>
+    <string name="textview_signup">Signup</string>
+    <string name="textview_name">Name</string>
+    <string name="textview_surname">Surname</string>
+    <string name="textview_address">Address</string>
+    <string name="textview_mobno">Mobile No.</string>
+    <string name="button_signup">Register</string>
+    <string name="button_viewAllData">View Data</string>
+    <string name="textview_email">Email</string>
+    <string name="textview_password">Password</string>
+    <string name="textview_cPassword">Confirm Password</string>
+
+</resources>
