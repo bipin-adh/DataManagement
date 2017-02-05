@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,8 +18,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     Button btnlogin;
 
-    public void initView()
-    {
+    public void initView() {
         btnlogin = (Button) findViewById(R.id.button_login);
 
 
@@ -54,25 +55,44 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String struser = editTextEnteredLogin.getText().toString();
         String strpass = editTextEnteredPassword.getText().toString();
 
+        String loginPass = editTextEnteredPassword.getText().toString();
+        String loginUser = editTextEnteredLogin.getText().toString();
 
-        String password = myDb.searchPass(struser);
+        if (!Patterns.EMAIL_ADDRESS.matcher(loginUser).matches()) {
 
-        if (password.equals("username not found")) {
-            Toast.makeText(LoginActivity.this, "username not found", Toast.LENGTH_LONG).show();
+            editTextEnteredLogin.setError("invalid username! eg- abc@hotmail.com");
+            editTextEnteredLogin.requestFocus();
         } else {
 
+            if (TextUtils.isEmpty(loginPass) || loginPass.length() < 8) {
 
-            if (strpass.equals(password)) {
-                Toast.makeText(LoginActivity.this, "login succesfull", Toast.LENGTH_LONG).show();
+                editTextEnteredPassword.setError("password must have 8 characters");
+                editTextEnteredPassword.requestFocus();
+                return;
 
             } else {
-                Toast.makeText(LoginActivity.this, "login failed. password is incorrect", Toast.LENGTH_LONG).show();
+
+
+                String password = myDb.searchPass(struser);
+
+                if (password.equals("username not found")) {
+                    Toast.makeText(LoginActivity.this, "username not found", Toast.LENGTH_LONG).show();
+                } else {
+
+
+                    if (strpass.equals(password)) {
+                        Toast.makeText(LoginActivity.this, "login succesfull", Toast.LENGTH_LONG).show();
+
+                    } else {
+                        Toast.makeText(LoginActivity.this, "login failed. password is incorrect", Toast.LENGTH_LONG).show();
+
+                    }
+
+                }
+
 
             }
-
         }
-
-
     }
 }
 
