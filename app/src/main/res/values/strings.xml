@@ -15,5 +15,6 @@
     <string name="textview_email">Email</string>
     <string name="textview_password">Password</string>
     <string name="textview_cPassword">Confirm Password</string>
+    <string name="userScreen">You have entered user page</string>
 
 </resources>

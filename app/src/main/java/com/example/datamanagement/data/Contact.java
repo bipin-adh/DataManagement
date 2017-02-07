@@ -1,4 +1,4 @@
-package com.example.datamanagement;
+package com.example.datamanagement.data;
 
 /**
  * Created by b1p1n on 1/26/2017.

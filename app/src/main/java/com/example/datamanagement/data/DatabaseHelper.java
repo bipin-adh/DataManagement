@@ -1,4 +1,4 @@
-package com.example.datamanagement;
+package com.example.datamanagement.data;
 
 import android.content.ContentValues;
 import android.content.Context;

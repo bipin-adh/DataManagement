@@ -1,4 +1,4 @@
-package com.example.datamanagement;
+package com.example.datamanagement.activities;
 
 import android.app.AlertDialog;
 import android.database.Cursor;
@@ -10,7 +10,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class SignupActivity extends AppCompatActivity implements View.OnClickListener {
+import com.example.datamanagement.data.Contact;
+import com.example.datamanagement.data.DatabaseHelper;
+import com.example.datamanagement.R;
+
+public class Signup extends AppCompatActivity implements View.OnClickListener {
 
     DatabaseHelper myDb;
     EditText editTextName, editTextEmail, editTextPassword, editTextCpassword;
@@ -74,14 +78,14 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                     boolean isInserted = myDb.insertData(contact);
 
                     if (isInserted) {
-                        Toast.makeText(SignupActivity.this, "Data inserted", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Signup.this, "Data inserted", Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(SignupActivity.this, "Data not inserted", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Signup.this, "Data not inserted", Toast.LENGTH_LONG).show();
                     }
 
                 } else {
 
-                    Toast.makeText(SignupActivity.this, "Password and Confirm Password dont match", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Signup.this, "Password and Confirm Password dont match", Toast.LENGTH_LONG).show();
 
                 }
             }
