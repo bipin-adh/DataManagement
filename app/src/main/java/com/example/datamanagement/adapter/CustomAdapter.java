@@ -11,6 +11,9 @@ import android.widget.TextView;
 
 import com.example.datamanagement.R;
 import com.example.datamanagement.model.Contact;
+import com.example.datamanagement.model.Task;
+
+import java.util.List;
 
 import static android.R.attr.resource;
 
@@ -23,17 +26,15 @@ public class CustomAdapter extends ArrayAdapter{
 
 
     Context context ;
-    Contact contact = new Contact();
+    List<Task> taskList;
 
 
 
 
-    public CustomAdapter(Context context, Contact contact) {
-        super(context,R.layout.list_item, contact);
+    public CustomAdapter(Context context, List<Task> taskList) {
+        super(context,R.layout.list_item, taskList);
         this.context = context;
-        this.contact = contact;
-
-
+        this.taskList = taskList;
     }
 
     @Override
@@ -44,12 +45,20 @@ public class CustomAdapter extends ArrayAdapter{
         convertView = inflater.inflate(R.layout.list_item, parent, false);
         TextView name = (TextView) convertView.findViewById(R.id.textView1);
         CheckBox cb = (CheckBox) convertView.findViewById(R.id.checkBox1);
-        name.setText(Contact.getName());
-        if(Contact.getChkvalue() == 1)
+        Task task = taskList.get(position);
+        name.setText(task.getTaskName());
+        boolean isChecked = task.isChecked();
+        if(isChecked){
             cb.setChecked(true);
-        else
+        }else{
             cb.setChecked(false);
-        return convertView;
+        }
+        return  convertView;
+    }
+
+
+    public List<Task> getData() {
+        return taskList;
     }
 
 }

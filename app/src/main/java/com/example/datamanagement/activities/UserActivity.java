@@ -15,6 +15,7 @@ import com.example.datamanagement.R;
 import com.example.datamanagement.adapter.CustomAdapter;
 import com.example.datamanagement.helper.DatabaseHelper;
 import com.example.datamanagement.model.Contact;
+import com.example.datamanagement.model.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,9 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
     DatabaseHelper myDb;
     Button btnAdd ;// btnView;
     EditText editText;
+    CustomAdapter customAdapter;
+    List<Task> taskList;
+    ListView listView;
 
     public void initView(){
 
@@ -38,9 +42,9 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 
-
-       myDb = new DatabaseHelper(this);
+        myDb = new DatabaseHelper(this);
         initView();
+        viewListData();
 
         btnAdd.setOnClickListener(this);
         //btnView.setOnClickListener(this);
@@ -55,7 +59,6 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.addListData:
                 addListData();
-                viewListData();
                 break;
 
             //case R.id.viewListData:
@@ -67,20 +70,31 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
 
     public void addListData(){
         String newEntry = editText.getText().toString();
-        if(editText.equals(0)){
+        if(newEntry.length()==0){
             Toast.makeText(UserActivity.this, "you must write something", Toast.LENGTH_LONG).show();
 
         }else{
             AddData(newEntry);
+            refreshData();
             editText.setText("");
         }
     }
 
+    private void refreshData() {
+        taskList = myDb.getTasks();
+        customAdapter.getData().clear();
+        customAdapter.getData().addAll(taskList);
+        customAdapter.notifyDataSetChanged();
+    }
+
     public void AddData(String newEntry){
-        boolean insertData = myDb.insertListData(newEntry);
+        Task task = new Task();
+        task.setTaskName(newEntry);
+        task.setChecked(false);
+        boolean insertData = myDb.insertListData(task);
 
         if(insertData){
-            Toast.makeText(UserActivity.this, "data inserted succesfully", Toast.LENGTH_LONG).show();
+            Toast.makeText(UserActivity.this, "data inserted successfully", Toast.LENGTH_LONG).show();
 
         }else{
             Toast.makeText(UserActivity.this, "error inserting data", Toast.LENGTH_LONG).show();
@@ -89,27 +103,16 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void viewListData(){
+        listView = (ListView)findViewById(R.id.listViewData);
+        taskList = new ArrayList<>();
 
-        ListView listView = (ListView)findViewById(R.id.listViewData);
-        //ArrayList<String> theList = new ArrayList<>();
-        List<Contact> contactList = new ArrayList<>();
+        taskList = myDb.getTasks();
 
-        Cursor data = myDb.getListData();
-
-        if(data.getCount()==0){
-
-            Toast.makeText(UserActivity.this, "database empty", Toast.LENGTH_LONG).show();
-
+        if(taskList!=null && taskList.size()>0){
+            customAdapter = new CustomAdapter(this,taskList);
+            listView.setAdapter(customAdapter);
         }else{
-
-            while(data.moveToNext()){
-                Contact contact = new Contact();
-                contact.getName() = data.getString(1);
-                //ListAdapter listAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,theList);
-                //listView.setAdapter(listAdapter);
-                CustomAdapter customAdapter = new CustomAdapter(this,contact);
-                listView.setAdapter(customAdapter);
-            }
+            Toast.makeText(UserActivity.this, "database empty", Toast.LENGTH_SHORT).show();
         }
     }
 }

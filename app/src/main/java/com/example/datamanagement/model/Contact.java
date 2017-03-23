@@ -6,8 +6,6 @@ package com.example.datamanagement.model;
 public class Contact {
 
     String name,email,password;
-    String chkname;
-    int chkvalue; /* 0 -&gt; checkbox disable, 1 -&gt; checkbox enable */
 
     public void setName(String name)
     {
@@ -41,19 +39,7 @@ public class Contact {
     }
 
 
-    Contact (String chkname, int chkvalue){
-        this.chkname = chkname;
-        this.chkvalue =chkvalue;
+    public Contact () {
+
     }
-
-    public String getChkname(){
-        return this.chkname;
-    }
-    public int getChkvalue(){
-        return this.chkvalue;
-    }
-
-
-
-
 }
