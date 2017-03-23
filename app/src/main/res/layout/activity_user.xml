@@ -7,13 +7,28 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.datamanagement.activities.User">
+    tools:context="com.example.datamanagement.activities.UserActivity">
 
-    <TextView
-        android:id="@+id/userScreen"
+    <EditText
+        android:id="@+id/edittext_listdata"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/addListData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/userScreen"
-        android:textSize="25sp"/>
+        android:text="@string/addListData"
+        android:layout_below="@+id/edittext_listdata"
+        />
+
+
+    <ListView
+        android:id="@+id/listViewData"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/addListData"
+
+        />
 
 </RelativeLayout>

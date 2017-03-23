@@ -1,4 +1,4 @@
-package com.example.datamanagement.data;
+package com.example.datamanagement.model;
 
 /**
  * Created by b1p1n on 1/26/2017.
@@ -6,6 +6,8 @@ package com.example.datamanagement.data;
 public class Contact {
 
     String name,email,password;
+    String chkname;
+    int chkvalue; /* 0 -&gt; checkbox disable, 1 -&gt; checkbox enable */
 
     public void setName(String name)
     {
@@ -36,6 +38,19 @@ public class Contact {
     public String getPassword()
     {
         return this.password;
+    }
+
+
+    Contact (String chkname, int chkvalue){
+        this.chkname = chkname;
+        this.chkvalue =chkvalue;
+    }
+
+    public String getChkname(){
+        return this.chkname;
+    }
+    public int getChkvalue(){
+        return this.chkvalue;
     }
 
 

@@ -12,11 +12,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.datamanagement.data.DatabaseHelper;
+import com.example.datamanagement.helper.DatabaseHelper;
 import com.example.datamanagement.R;
 
 
-public class Login extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private Toolbar toolbar;
     DatabaseHelper myDb = new DatabaseHelper(this);
 
@@ -74,17 +74,17 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 String password = myDb.searchPass(strUser);
 
                 if (password.equals("username not found")) {
-                    Toast.makeText(Login.this, "username not found", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "username not found", Toast.LENGTH_LONG).show();
                 } else {
 
 
                     if (strPass.equals(password)) {
-                        Toast.makeText(Login.this, "login succesfull", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(this,User.class);
+                        Toast.makeText(LoginActivity.this, "login succesfull", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(this,UserActivity.class);
                         startActivity(intent);
 
                     } else {
-                        Toast.makeText(Login.this, "login failed. password is incorrect", Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, "login failed. password is incorrect", Toast.LENGTH_LONG).show();
 
                     }
 
@@ -99,7 +99,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     public void enterSignupPage() {
 
 
-        Intent intent = new Intent(this, Signup.class);
+        Intent intent = new Intent(this, SignupActivity.class);
         startActivity(intent);
 
 
