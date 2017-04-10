@@ -9,25 +9,28 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.datamanagement.activities.UserActivity">
 
-    <EditText
-        android:id="@+id/edittext_listdata"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/addListData"
+
+    <android.support.design.widget.FloatingActionButton
+
+        android:id="@+id/fab_addtask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/addListData"
+        android:layout_gravity="right|bottom"
         android:layout_below="@+id/edittext_listdata"
+        android:src="@drawable/ic_add_black_24dp"
+
+
         />
+
+
 
 
     <ListView
         android:id="@+id/listViewData"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/addListData"
+        android:layout_below="@+id/fab_addtask"
 
         />
 

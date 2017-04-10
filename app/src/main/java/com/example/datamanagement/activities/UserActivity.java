@@ -1,39 +1,59 @@
 package com.example.datamanagement.activities;
 
-import android.database.Cursor;
+import android.app.Dialog;
+import android.nfc.Tag;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-
+import com.example.datamanagement.fragment.AddToListDialogFragment;
 import com.example.datamanagement.R;
 import com.example.datamanagement.adapter.CustomAdapter;
+
 import com.example.datamanagement.helper.DatabaseHelper;
-import com.example.datamanagement.model.Contact;
 import com.example.datamanagement.model.Task;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserActivity extends AppCompatActivity implements View.OnClickListener {
 
+
+
+public class UserActivity extends AppCompatActivity implements View.OnClickListener,AddToListDialogFragment.ActivityCommunicator {
+
+
+    private static final String TAG1 = "Check";
+    FloatingActionButton fab;
     DatabaseHelper myDb;
-    Button btnAdd ;// btnView;
-    EditText editText;
     CustomAdapter customAdapter;
     List<Task> taskList;
     ListView listView;
+    EditText editText;
+    private AddToListDialogFragment.ActivityCommunicator activityCommunicator;
+
+
+
 
     public void initView(){
 
-        editText = (EditText)findViewById(R.id.edittext_listdata);
-        btnAdd = (Button)findViewById(R.id.addListData);
-        //btnView = (Button)findViewById(R.id.viewListData);
+        fab = (FloatingActionButton)findViewById(R.id.fab_addtask);
+
+        editText =(EditText)findViewById(R.id.edittext_listdata);
+          }
+
+    @Override
+    public void passDataToActivity(String string){
+
+
+
+        String newEntry = string;
+
+        addListData(newEntry);
 
     }
 
@@ -46,8 +66,19 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         initView();
         viewListData();
 
-        btnAdd.setOnClickListener(this);
+
+        fab.setOnClickListener(this);
         //btnView.setOnClickListener(this);
+    }
+    private void showDialog(){
+        Log.d(TAG1, "showDialog: after fabbutton click");
+
+        final Dialog mydiag = new Dialog(this);
+        mydiag.setTitle("Add Task");
+        mydiag.setContentView(R.layout.edittext_addtask);
+
+        mydiag.show();
+
     }
 
     @Override
@@ -57,9 +88,12 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
 
         switch (id){
 
-            case R.id.addListData:
-                addListData();
+            case R.id.fab_addtask:
+                Log.d(TAG1, "onClick: inside fabaddtask");
+                showDialog();
+                //addListData();
                 break;
+
 
             //case R.id.viewListData:
                 //viewListData();
@@ -68,16 +102,19 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public void addListData(){
-        String newEntry = editText.getText().toString();
-        if(newEntry.length()==0){
+
+    public void addListData(String entry) {
+
+        String newEntry = entry;
+        if (newEntry.length() == 0) {
             Toast.makeText(UserActivity.this, "you must write something", Toast.LENGTH_LONG).show();
 
-        }else{
+        } else {
             AddData(newEntry);
             refreshData();
             editText.setText("");
         }
+        viewListData();
     }
 
     private void refreshData() {
@@ -100,7 +137,13 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(UserActivity.this, "error inserting data", Toast.LENGTH_LONG).show();
         }
 
+
+
     }
+
+
+
+
 
     public void viewListData(){
         listView = (ListView)findViewById(R.id.listViewData);

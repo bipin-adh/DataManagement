@@ -57,7 +57,8 @@ public class CustomAdapter extends ArrayAdapter{
     }
 
 
-    public List<Task> getData() {
+    public List<Task> getData()
+    {
         return taskList;
     }
 

@@ -18,5 +18,11 @@
     <string name="userScreen">You have entered user page</string>
     <string name="viewListData">view data</string>
     <string name="addListData">add new task</string>
+    <string name="addtolistview">Add</string>
+    <string name="cancelAdd">Cancel</string>
+
+    <string name="Add">add</string>
+    <string name="Cancel">cancel</string>
+
 
 </resources>
