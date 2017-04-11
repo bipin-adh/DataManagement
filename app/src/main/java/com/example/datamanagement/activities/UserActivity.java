@@ -1,13 +1,11 @@
 package com.example.datamanagement.activities;
 
 import android.app.Dialog;
-import android.nfc.Tag;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -24,18 +22,17 @@ import java.util.List;
 
 
 
-public class UserActivity extends AppCompatActivity implements View.OnClickListener,AddToListDialogFragment.ActivityCommunicator {
+public class UserActivity extends AppCompatActivity implements View.OnClickListener,AddToListDialogFragment.DataEnteredListener {
 
 
-    private static final String TAG1 = "Check";
+    private static final String TAG = UserActivity.class.getSimpleName();
     FloatingActionButton fab;
     DatabaseHelper myDb;
     CustomAdapter customAdapter;
     List<Task> taskList;
     ListView listView;
-    EditText editText;
-    private AddToListDialogFragment.ActivityCommunicator activityCommunicator;
-
+//    EditText editText;
+    AddToListDialogFragment dialogFragment;
 
 
 
@@ -43,18 +40,13 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
 
         fab = (FloatingActionButton)findViewById(R.id.fab_addtask);
 
-        editText =(EditText)findViewById(R.id.edittext_listdata);
+//        editText =(EditText)findViewById(R.id.edittext_listdata);
           }
 
     @Override
-    public void passDataToActivity(String string){
-
-
-
-        String newEntry = string;
-
-        addListData(newEntry);
-
+    public void OnDataEntered(String enteredData){
+        Log.d(TAG, "OnDataEntered:" + enteredData);
+        addListData(enteredData);
     }
 
     @Override
@@ -71,13 +63,10 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         //btnView.setOnClickListener(this);
     }
     private void showDialog(){
-        Log.d(TAG1, "showDialog: after fabbutton click");
+        Log.d(TAG, "showDialog: after fabbutton click");
 
-        final Dialog mydiag = new Dialog(this);
-        mydiag.setTitle("Add Task");
-        mydiag.setContentView(R.layout.edittext_addtask);
-
-        mydiag.show();
+        dialogFragment = new AddToListDialogFragment();
+        dialogFragment.show(UserActivity.this.getFragmentManager(),"AddToListFragment");
 
     }
 
@@ -89,7 +78,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         switch (id){
 
             case R.id.fab_addtask:
-                Log.d(TAG1, "onClick: inside fabaddtask");
+                Log.d(TAG, "onClick: inside fabaddtask");
                 showDialog();
                 //addListData();
                 break;
@@ -108,13 +97,11 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         String newEntry = entry;
         if (newEntry.length() == 0) {
             Toast.makeText(UserActivity.this, "you must write something", Toast.LENGTH_LONG).show();
-
         } else {
             AddData(newEntry);
             refreshData();
-            editText.setText("");
+//            editText.setText("");
         }
-        viewListData();
     }
 
     private void refreshData() {
@@ -132,6 +119,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
 
         if(insertData){
             Toast.makeText(UserActivity.this, "data inserted successfully", Toast.LENGTH_LONG).show();
+            dialogFragment.dismiss();
 
         }else{
             Toast.makeText(UserActivity.this, "error inserting data", Toast.LENGTH_LONG).show();
@@ -146,6 +134,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
 
 
     public void viewListData(){
+        Log.d(TAG, "viewListData");
         listView = (ListView)findViewById(R.id.listViewData);
         taskList = new ArrayList<>();
 

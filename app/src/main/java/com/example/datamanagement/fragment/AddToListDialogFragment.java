@@ -20,16 +20,17 @@ import static android.content.ContentValues.TAG;
 public class AddToListDialogFragment extends DialogFragment implements View.OnClickListener  {
 
 
-
-    private ActivityCommunicator activityCommunicator;
+    public static final String TAG = AddToListDialogFragment.class.getSimpleName();
+    private DataEnteredListener dataEnteredListener;
     Button positiveButton , negativeButton;
     EditText editTextAddToList;
+    String enteredData;
 
         //EditText editTextAddToList;
 
-    public interface ActivityCommunicator {
+    public interface DataEnteredListener {
 
-        void passDataToActivity(String string);
+        void OnDataEntered(String string);
 
     }
 
@@ -51,11 +52,11 @@ public class AddToListDialogFragment extends DialogFragment implements View.OnCl
         super.onAttach(activity);
 
         try {
-            activityCommunicator = (ActivityCommunicator) activity;
+            dataEnteredListener = (DataEnteredListener) activity;
 
         }catch (ClassCastException e){
 
-            throw new ClassCastException(activity.toString() + "must implement ActivityCommunicator");
+            throw new ClassCastException(activity.toString() + "must implement DataEnteredListener");
         }
 
 
@@ -85,8 +86,9 @@ public class AddToListDialogFragment extends DialogFragment implements View.OnCl
             int id = v.getId();
             switch (id) {
                 case R.id.btnPositive:
-                    Log.d(TAG, "onClick: i am inside Add button");
-                    activityCommunicator.passDataToActivity(editTextAddToList.getText().toString());
+                    enteredData = editTextAddToList.getText().toString();
+                    Log.d(TAG, "onClick: Entered data: " + enteredData);
+                    dataEnteredListener.OnDataEntered(enteredData);
                     break;
 
                 case R.id.btnNegative:
