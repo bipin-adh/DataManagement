@@ -129,20 +129,17 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-
-
-
-
     public void viewListData(){
         Log.d(TAG, "viewListData");
         listView = (ListView)findViewById(R.id.listViewData);
         taskList = new ArrayList<>();
+        customAdapter = new CustomAdapter(this,taskList);
+        listView.setAdapter(customAdapter);
 
         taskList = myDb.getTasks();
 
         if(taskList!=null && taskList.size()>0){
-            customAdapter = new CustomAdapter(this,taskList);
-            listView.setAdapter(customAdapter);
+            refreshData();
         }else{
             Toast.makeText(UserActivity.this, "database empty", Toast.LENGTH_SHORT).show();
         }
