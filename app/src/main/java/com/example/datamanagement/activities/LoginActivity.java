@@ -39,6 +39,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
         initView();
+
+
         btnlogin.setOnClickListener(this);
 
         txtviewSignup.setOnClickListener(this);
@@ -81,7 +83,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     if (strPass.equals(password)) {
                         Toast.makeText(LoginActivity.this, "login succesfull", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(this,UserActivity.class);
+                        intent.putExtra(UserActivity.EXTRA_USER,strUser);
                         startActivity(intent);
+
 
                     } else {
                         Toast.makeText(LoginActivity.this, "login failed. password is incorrect", Toast.LENGTH_LONG).show();

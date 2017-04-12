@@ -14,9 +14,6 @@ import android.widget.EditText;
 import com.example.datamanagement.R;
 
 
-import static android.content.ContentValues.TAG;
-
-
 public class AddToListDialogFragment extends DialogFragment implements View.OnClickListener  {
 
 
@@ -68,7 +65,7 @@ public class AddToListDialogFragment extends DialogFragment implements View.OnCl
 
 
         Log.d(TAG, "onCreateView: oncreate view after first run");
-        View rootView = inflater.inflate(R.layout.edittext_addtask, null);
+        View rootView = inflater.inflate(R.layout.edittext_diagfrag, null);
 
         initView(rootView);
 

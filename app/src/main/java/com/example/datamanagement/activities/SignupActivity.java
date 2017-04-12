@@ -36,7 +36,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.signup_form);
+        setContentView(R.layout.activity_signup);
 
 
         myDb = new DatabaseHelper(this);

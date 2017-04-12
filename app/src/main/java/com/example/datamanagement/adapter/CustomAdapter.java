@@ -10,12 +10,9 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.datamanagement.R;
-import com.example.datamanagement.model.Contact;
 import com.example.datamanagement.model.Task;
 
 import java.util.List;
-
-import static android.R.attr.resource;
 
 
 /**
@@ -32,7 +29,7 @@ public class CustomAdapter extends ArrayAdapter{
 
 
     public CustomAdapter(Context context, List<Task> taskList) {
-        super(context,R.layout.list_item, taskList);
+        super(context,R.layout.list_item_checkbox, taskList);
         this.context = context;
         this.taskList = taskList;
     }
@@ -42,7 +39,7 @@ public class CustomAdapter extends ArrayAdapter{
 
 
         LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-        convertView = inflater.inflate(R.layout.list_item, parent, false);
+        convertView = inflater.inflate(R.layout.list_item_checkbox, parent, false);
         TextView name = (TextView) convertView.findViewById(R.id.textView1);
         CheckBox cb = (CheckBox) convertView.findViewById(R.id.checkBox1);
         Task task = taskList.get(position);

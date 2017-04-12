@@ -26,6 +26,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private static final String TAG = UserActivity.class.getSimpleName();
+    public static final String EXTRA_USER = "user_id";
     FloatingActionButton fab;
     DatabaseHelper myDb;
     CustomAdapter customAdapter;
@@ -33,6 +34,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
     ListView listView;
 //    EditText editText;
     AddToListDialogFragment dialogFragment;
+    public String userActive;
 
 
 
@@ -53,6 +55,10 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
+
+        //String userActive;
+        userActive = getIntent().getStringExtra(EXTRA_USER);
+        Log.d(TAG, "onCreate: userActive  " + userActive);
 
         myDb = new DatabaseHelper(this);
         initView();
@@ -115,6 +121,8 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         Task task = new Task();
         task.setTaskName(newEntry);
         task.setChecked(false);
+        task.setTaskUser(userActive);
+
         boolean insertData = myDb.insertListData(task);
 
         if(insertData){

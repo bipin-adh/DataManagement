@@ -29,6 +29,7 @@
         android:textColorHint="@color/textHintColor"
         android:background="@color/editTextColor"
         android:padding="10dp"
+        android:inputType="text"
         />
     <EditText
         android:drawableStart="@drawable/ic_https_24dp"
@@ -42,7 +43,8 @@
         android:hint="@string/password"
         android:inputType="textPassword"
         android:textColorHint="@color/textHintColor"
-        android:background="@color/editTextColor"/>
+        android:background="@color/editTextColor"
+        />
 
     <TextView
         android:id="@+id/textview_register"

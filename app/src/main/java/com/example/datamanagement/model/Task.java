@@ -6,9 +6,11 @@ package com.example.datamanagement.model;
 
 public class Task {
     String taskName;
+    String taskUser;
     boolean isChecked;
 
     public boolean isChecked()
+
     {
         return isChecked;
     }
@@ -20,13 +22,23 @@ public class Task {
     }
 
     public String getTaskName()
+
     {
         return taskName;
     }
 
     public void setTaskName(String taskName)
+
     {
         this.taskName = taskName;
+    }
+
+    public String getTaskUser(){
+        return taskUser;
+    }
+
+    public void setTaskUser(String taskUser){
+        this.taskUser = taskUser;
     }
 
     public Task(){

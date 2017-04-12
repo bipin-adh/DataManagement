@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.datamanagement.activities.UserActivity;
 import com.example.datamanagement.model.Contact;
 import com.example.datamanagement.model.Task;
 
@@ -32,6 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TABLE_LIST = "List";
     public static final String TASK_NAME = "task";
     public static final String TASK_STATUS = "status";
+    public static final String TASK_USER = "user";
 
 
     String SQL_String1 = "CREATE TABLE " + TABLE_USER + " ( " +
@@ -44,7 +46,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     String SQL_String2 = "CREATE TABLE " + TABLE_LIST + " ( " +
             COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             TASK_NAME + " TEXT, " +
-            TASK_STATUS + " TEXT " +
+            TASK_STATUS + " TEXT, " +
+            TABLE_USER + " TEXT " +
             " ) ";
 
 
@@ -102,6 +105,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put(TASK_NAME,task.getTaskName());
         contentValues.put(TASK_STATUS, task.isChecked()?1:0);
+        contentValues.put(TABLE_USER, task.getTaskUser());
+        Log.d(TAG, "insertListData: user is " + task.getTaskUser());
         long result =  db.insert(TABLE_LIST, null, contentValues); // returns -1 if no data is inserted
         db.close();
         if (result == -1)
