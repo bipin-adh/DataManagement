@@ -111,7 +111,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void refreshData() {
-        taskList = myDb.getTasks();
+        taskList = myDb.getTasks(userActive);
         customAdapter.getData().clear();
         customAdapter.getData().addAll(taskList);
         customAdapter.notifyDataSetChanged();
@@ -144,7 +144,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         customAdapter = new CustomAdapter(this,taskList);
         listView.setAdapter(customAdapter);
 
-        taskList = myDb.getTasks();
+        taskList = myDb.getTasks(userActive);
 
         if(taskList!=null && taskList.size()>0){
             refreshData();

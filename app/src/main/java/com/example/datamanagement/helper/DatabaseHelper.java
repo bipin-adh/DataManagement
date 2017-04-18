@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.example.datamanagement.activities.UserActivity;
 import com.example.datamanagement.model.Contact;
 import com.example.datamanagement.model.Task;
 
@@ -23,31 +22,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "data.db";
     public static final String TABLE_USER = "UserData";
-    public static final int DATABASE_VERSION = 2;
-    public static final String COLUMN_ID = "ID";
-    public static final String USER_NAME = "name";
-    public static final String USER_EMAIL = "email";
-    public static final String USER_PASSWORD = "password";
+    public static final int DATABASE_VERSION = 3;
+    public static final String COL_ID = "ID";
+    public static final String COL_USER_NAME = "name";
+    public static final String COL_USER_EMAIL = "email";
+    public static final String COL_USER_PASSWORD = "password";
 
 
     public static final String TABLE_LIST = "List";
-    public static final String TASK_NAME = "task";
-    public static final String TASK_STATUS = "status";
-    public static final String TASK_USER = "user";
+    public static final String COL_TASK_NAME = "task";
+    public static final String COL_TASK_STATUS = "status";
+    public static final String COL_TASK_USER = "user";
 
 
-    String SQL_String1 = "CREATE TABLE " + TABLE_USER + " ( " +
-            COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            USER_NAME + " TEXT, " +
-            USER_EMAIL + " TEXT, " +
-            USER_PASSWORD + " TEXT " +
+    String QUERY_CREATE_USER = "CREATE TABLE " + TABLE_USER + " ( " +
+            COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            COL_USER_NAME + " TEXT, " +
+            COL_USER_EMAIL + " TEXT, " +
+            COL_USER_PASSWORD + " TEXT " +
             " ) ";
 
-    String SQL_String2 = "CREATE TABLE " + TABLE_LIST + " ( " +
-            COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            TASK_NAME + " TEXT, " +
-            TASK_STATUS + " TEXT, " +
-            TABLE_USER + " TEXT " +
+    String QUERY_CREATE_TASK = "CREATE TABLE " + TABLE_LIST + " ( " +
+            COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            COL_TASK_NAME + " TEXT, " +
+            COL_TASK_STATUS + " TEXT, " +
+            COL_TASK_USER + " TEXT " +
             " ) ";
 
 
@@ -65,8 +64,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        db.execSQL(SQL_String1);
-        db.execSQL(SQL_String2);
+        db.execSQL(QUERY_CREATE_USER);
+        db.execSQL(QUERY_CREATE_TASK);
     }
 
     @Override
@@ -83,9 +82,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         // write data to database table
         ContentValues contentValues = new ContentValues();
-        contentValues.put(USER_NAME, c.getName());
-        contentValues.put(USER_EMAIL, c.getEmail());
-        contentValues.put(USER_PASSWORD, c.getPassword());
+        contentValues.put(COL_USER_NAME, c.getName());
+        contentValues.put(COL_USER_EMAIL, c.getEmail());
+        contentValues.put(COL_USER_PASSWORD, c.getPassword());
 
 
 
@@ -103,10 +102,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         // write data to database table
         ContentValues contentValues = new ContentValues();
-        contentValues.put(TASK_NAME,task.getTaskName());
-        contentValues.put(TASK_STATUS, task.isChecked()?1:0);
-        contentValues.put(TABLE_USER, task.getTaskUser());
-        Log.d(TAG, "insertListData: user is " + task.getTaskUser());
+        contentValues.put(COL_TASK_NAME,task.getTaskName());
+        contentValues.put(COL_TASK_STATUS, task.isChecked()?1:0);
+        contentValues.put(COL_TASK_USER, task.getTaskUser());
+
         long result =  db.insert(TABLE_LIST, null, contentValues); // returns -1 if no data is inserted
         db.close();
         if (result == -1)
@@ -160,29 +159,40 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public List<Task> getTasks(){
+    public List<Task> getTasks(String activeUser){
+
         SQLiteDatabase db = this.getReadableDatabase();
         List<Task> taskList = new ArrayList<>();
 
-        Cursor cursor = db.rawQuery("select * from " + TABLE_LIST, null);
+        String query = "select * from " + TABLE_LIST + " where " + COL_TASK_USER + " = " + activeUser;
+        Log.e(TAG, query );
+        Cursor cursor = db.rawQuery(query,null);
+        Log.e(TAG, query );
+        //Cursor cursor = db.rawQuery("select * from  TABLE_LIST  where  COL_TASK_USER = "+email+" ",null)
+        // "SELECT * FROM " + TABLE_MESSAGE + " WHERE " + MESSAGE_USERNAME + " = " + username
         if(cursor.getCount()==0){
             taskList = null;
         }else{
 
             while(cursor.moveToNext()){
                 Task task = new Task();
-                String name = cursor.getString(cursor.getColumnIndex(TASK_NAME));
+                String name = cursor.getString(cursor.getColumnIndex(COL_TASK_NAME));
                 Log.e("DBHelper", name);
                 boolean isChecked = true;
-                int checkedStatus = cursor.getInt(cursor.getColumnIndex(TASK_STATUS));
+                int checkedStatus = cursor.getInt(cursor.getColumnIndex(COL_TASK_STATUS));
+                String user = cursor.getString(cursor.getColumnIndex(COL_TASK_USER));
+                Log.e("DBHelper", user);
+                Log.e(TAG, "getTasks: user" );
                 if(checkedStatus == 0){
                     isChecked = false;
                 }
                 task.setTaskName(name);
                 task.setChecked(isChecked);
+                task.setTaskUser(user);
                 taskList.add(task);
             }
         }
+        db.close();
         return  taskList;
     }
 
