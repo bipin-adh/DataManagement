@@ -3,10 +3,13 @@ package com.example.datamanagement.helper;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.example.datamanagement.activities.SignupActivity;
 import com.example.datamanagement.model.Contact;
 import com.example.datamanagement.model.Task;
 
@@ -17,6 +20,7 @@ import java.util.List;
  * Created by b1p1n on 1/24/2017.
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
+
 
     public static final String TAG = DatabaseHelper.class.getSimpleName();
 
@@ -38,7 +42,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     String QUERY_CREATE_USER = "CREATE TABLE " + TABLE_USER + " ( " +
             COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             COL_USER_NAME + " TEXT, " +
-            COL_USER_EMAIL + " TEXT, " +
+            COL_USER_EMAIL + " TEXT UNIQUE, " +
             COL_USER_PASSWORD + " TEXT " +
             " ) ";
 
@@ -77,8 +81,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean insertData(Contact c) {
+    public boolean checkDuplicateEntries(Contact c){
 
+        boolean success= false;
         SQLiteDatabase db = this.getWritableDatabase();
         // write data to database table
         ContentValues contentValues = new ContentValues();
@@ -86,6 +91,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COL_USER_EMAIL, c.getEmail());
         contentValues.put(COL_USER_PASSWORD, c.getPassword());
 
+        try{
+            db.insertOrThrow(TABLE_USER,null,contentValues);
+            success = true;
+        }catch (SQLException e){
+            e.printStackTrace();
+            success =false;
+            //Toast.makeText(signupActivity.this, "Account already exists on that username", Toast.LENGTH_LONG).show();
+
+        }
+        db.close();
+        return success;
+
+
+    }
+
+    public boolean insertData(Contact c) {
+
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        // write data to database table
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_USER_NAME, c.getName());
+        contentValues.put(COL_USER_EMAIL, c.getEmail());
+        contentValues.put(COL_USER_PASSWORD, c.getPassword());
 
 
       long result =  db.insert(TABLE_USER, null, contentValues); // returns -1 if no data is inserted
@@ -164,12 +193,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         List<Task> taskList = new ArrayList<>();
 
-        String query = "select * from " + TABLE_LIST + " where " + COL_TASK_USER + " = " + activeUser;
+
+        String query = "select * from " + TABLE_LIST + " where  user = '" + activeUser +"' ";
         Log.e(TAG, query );
         Cursor cursor = db.rawQuery(query,null);
         Log.e(TAG, query );
         //Cursor cursor = db.rawQuery("select * from  TABLE_LIST  where  COL_TASK_USER = "+email+" ",null)
         // "SELECT * FROM " + TABLE_MESSAGE + " WHERE " + MESSAGE_USERNAME + " = " + username
+        //"select * from " + TABLE_LIST + " where " + COL_TASK_USER + " = " + activeUser
         if(cursor.getCount()==0){
             taskList = null;
         }else{

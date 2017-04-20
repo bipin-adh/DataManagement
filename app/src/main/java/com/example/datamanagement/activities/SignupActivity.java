@@ -77,11 +77,26 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
                     boolean isInserted = myDb.insertData(contact);
 
+
+
+
                     if (isInserted) {
+
                         Toast.makeText(SignupActivity.this, "Data inserted", Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(SignupActivity.this, "Data not inserted", Toast.LENGTH_LONG).show();
                     }
+
+
+
+                    boolean duplicateDataChecked = myDb.checkDuplicateEntries(contact);
+
+                    if(duplicateDataChecked){
+                        Toast.makeText(SignupActivity.this, "Account created", Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(SignupActivity.this, "Account under that username already created", Toast.LENGTH_LONG).show();
+                    }
+
 
                 } else {
 
