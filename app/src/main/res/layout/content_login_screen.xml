@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/username"
         android:padding="15dp"
-        android:inputType="text"
+        android:inputType="textWebEmailAddress"
         />
     </android.support.design.widget.TextInputLayout>
 

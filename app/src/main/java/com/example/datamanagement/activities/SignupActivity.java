@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -53,56 +54,68 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
         public void AddData () {
             String pass = editTextPassword.getText().toString();
+            String name1 = editTextName.getText().toString();
+            String email1 = editTextEmail.getText().toString();
+
+            String password1 = editTextPassword.getText().toString();
+            String cpassword1 = editTextCpassword.getText().toString();
 
 
-            if(TextUtils.isEmpty(pass) || pass.length()<8){
 
-              editTextPassword.setError("password must have 8 characters");
-                return;
+            if(TextUtils.isEmpty(name1)){
 
+                editTextName.setError("Name missing");
+            }
+            else if (!Patterns.EMAIL_ADDRESS.matcher(email1).matches()) {
+
+                editTextEmail.setError("invalid username! eg- abc@hotmail.com");
+                editTextEmail.requestFocus();
             }else {
 
-                // take data from edittext and pass it to insertdata function .
-                String name1 = editTextName.getText().toString();
-                String email1 = editTextEmail.getText().toString();
-                String password1 = editTextPassword.getText().toString();
-                String cpassword1 = editTextCpassword.getText().toString();
 
-                if (password1.equals(cpassword1)) {
+                if (TextUtils.isEmpty(pass) || pass.length() < 8) {
 
-                    Contact contact = new Contact();
-                    contact.setName(name1);
-                    contact.setEmail(email1);
-                    contact.setPassword(password1);
-
-                    boolean isInserted = myDb.insertData(contact);
-
-
-
-
-                    if (isInserted) {
-
-                        Toast.makeText(SignupActivity.this, "Data inserted", Toast.LENGTH_LONG).show();
-                    } else {
-                        Toast.makeText(SignupActivity.this, "Data not inserted", Toast.LENGTH_LONG).show();
-                    }
-
-
-
-                    boolean duplicateDataChecked = myDb.checkDuplicateEntries(contact);
-
-                    if(duplicateDataChecked){
-                        Toast.makeText(SignupActivity.this, "Account created", Toast.LENGTH_LONG).show();
-                    }else{
-                        Toast.makeText(SignupActivity.this, "Account under that username already created", Toast.LENGTH_LONG).show();
-                    }
-
+                    editTextPassword.setError("password must have 8 characters");
+                    return;
 
                 } else {
 
-                    Toast.makeText(SignupActivity.this, "Password and Confirm Password dont match", Toast.LENGTH_LONG).show();
+                    // take data from edittext and pass it to insertdata function .
 
+                    if (password1.equals(cpassword1)) {
+
+                        Contact contact = new Contact();
+                        contact.setName(name1);
+                        contact.setEmail(email1);
+                        contact.setPassword(password1);
+
+                        boolean isInserted = myDb.insertData(contact);
+
+
+                        if (isInserted) {
+
+                            Toast.makeText(SignupActivity.this, "Data inserted", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(SignupActivity.this, "Data not inserted", Toast.LENGTH_LONG).show();
+                        }
+
+
+                        boolean duplicateDataChecked = myDb.checkDuplicateEntries(contact);
+
+                        if (duplicateDataChecked) {
+                            Toast.makeText(SignupActivity.this, "Account created", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(SignupActivity.this, "Account under that username already created", Toast.LENGTH_LONG).show();
+                        }
+
+
+                    } else {
+
+                        Toast.makeText(SignupActivity.this, "Password and Confirm Password dont match", Toast.LENGTH_LONG).show();
+
+                    }
                 }
+
             }
 
         }
