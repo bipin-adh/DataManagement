@@ -8,7 +8,6 @@
     android:fitsSystemWindows="true"
 
     >
-    <include layout="@layout/app_bar"/>
 
     <include layout="@layout/content_login_screen"/>
 

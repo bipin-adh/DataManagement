@@ -17,17 +17,19 @@ import com.example.datamanagement.R;
 
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
-    private Toolbar toolbar;
+
     DatabaseHelper myDb = new DatabaseHelper(this);
 
     Button btnlogin;
-    TextView txtviewSignup;
+    Button btnSignup;
+
     EditText editTextEnteredLogin;
     EditText editTextEnteredPassword;
 
     public void initView() {
         btnlogin = (Button) findViewById(R.id.button_login);
-        txtviewSignup = (TextView) findViewById(R.id.textview_signup);
+        btnSignup =(Button) findViewById(R.id.button_signup);
+
 
         editTextEnteredLogin = (EditText) findViewById(R.id.edittext_loginusername);
         editTextEnteredPassword = (EditText) findViewById(R.id.edittext_loginpassword);
@@ -42,13 +44,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
         btnlogin.setOnClickListener(this);
+        btnSignup.setOnClickListener(this);
 
-        txtviewSignup.setOnClickListener(this);
+        //txtviewSignup.setOnClickListener(this);
 
 
-        //add toolbar
-        toolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(toolbar);
+
     }
 
     public void enterLogin(){
@@ -119,7 +120,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.button_login:
                 enterLogin();
                 break;
-            case R.id.textview_signup:
+
+            case R.id.button_signup:
                 enterSignupPage();
                 break;
         }

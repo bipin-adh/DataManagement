@@ -8,12 +8,20 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:layout_marginTop="?android:attr/actionBarSize"
-    android:background="@drawable/loginscreen"
+    android:layout_marginTop="20dp"
+    android:background="#343642"
     tools:context=".activities.LoginActivity">
 
 
 
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/usernamewrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/title_login"
+        >
 
 
     <EditText
@@ -22,53 +30,60 @@
         android:id="@+id/edittext_loginusername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/title_login"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="100dp"
         android:hint="@string/username"
-        android:textColorHint="@color/textHintColor"
-        android:background="@color/editTextColor"
-        android:padding="10dp"
+        android:padding="15dp"
         android:inputType="text"
         />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/passwordwrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/usernamewrapper"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="10dp">
+
+
     <EditText
         android:drawableStart="@drawable/ic_https_24dp"
         android:drawableLeft="@drawable/ic_https_24dp"
         android:id="@+id/edittext_loginpassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/edittext_loginusername"
-        android:padding="10dp"
-        android:layout_marginBottom="10dp"
+        android:padding="15dp"
         android:hint="@string/password"
         android:inputType="textPassword"
-        android:textColorHint="@color/textHintColor"
-        android:background="@color/editTextColor"
         />
+</android.support.design.widget.TextInputLayout>
+
 
     <TextView
         android:id="@+id/textview_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/textRegister"
-        android:textSize="20dp"
-        android:layout_below="@+id/edittext_password"
+        android:textSize="25dp"
+        android:layout_below="@+id/passwordwrapper"
         android:padding="20dp"
+        android:paddingTop="40dp"
+        android:paddingBottom="40dp"
+        android:layout_marginTop="30dp"
         android:layout_centerInParent="true"
 
         />
-    <TextView
-        android:layout_width="wrap_content"
+
+    <Button
+        android:id="@+id/button_signup"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textview_register"
-        android:id="@+id/textview_signup"
-        android:layout_centerInParent="true"
-        android:text="@string/textview_signup"
-        android:textSize="30dp"
         android:padding="10dp"
-        android:layout_marginBottom="10dp"
-        android:onClick="registerPage"
-        />
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/button_signup"
+        android:textSize="20sp"
+        android:background="@drawable/roundedbutton"/>
 
     <Button
         android:id="@+id/button_login"
@@ -78,9 +93,9 @@
         android:text="@string/button_login"
         android:textSize="20sp"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="80dp"
-        android:layout_marginRight="80dp"
-        android:layout_below="@+id/textview_signup"
-        android:background="@color/buttonColor"
+        android:layout_below="@+id/button_signup"
+        android:background="@drawable/roundedbutton"
+
         />
+
 </RelativeLayout>

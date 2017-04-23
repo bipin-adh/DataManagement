@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -25,6 +26,7 @@ import java.util.List;
 public class UserActivity extends AppCompatActivity implements View.OnClickListener,AddToListDialogFragment.DataEnteredListener {
 
 
+    private Toolbar toolbar;
     private static final String TAG = UserActivity.class.getSimpleName();
     public static final String EXTRA_USER = "user_id";
     FloatingActionButton fab;
@@ -66,7 +68,10 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
 
 
         fab.setOnClickListener(this);
-        //btnView.setOnClickListener(this);
+
+        toolbar =(Toolbar)findViewById(R.id.my_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(userActive);
     }
     private void showDialog(){
         Log.d(TAG, "showDialog: after fabbutton click");

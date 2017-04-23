@@ -2,10 +2,8 @@
 <resources>
     <color name="colorPrimary">#282929</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="buttonColor">#0097A7</color>
+    <color name="colorAccent">#ce1b58</color>
+    <color name="buttonColor">#F26520</color>
     <color name="textColor">#757575</color>
-    <color name="editTextColor">#BBDEFB</color>
-    <color name="textHintColor">#757575</color>
-    <color name="appBarColor">#4b98b4</color>
+    <color name="appBarColor">#4d5263</color>
 </resources>

@@ -19,7 +19,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     DatabaseHelper myDb;
     EditText editTextName, editTextEmail, editTextPassword, editTextCpassword;
     Button btnReg;
-    Button btnViewAllData;
+    //Button btnViewAllData;
 
     public void initView()
     {
@@ -28,7 +28,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         editTextPassword = (EditText) findViewById(R.id.edittext_password);
         editTextCpassword = (EditText) findViewById(R.id.edittext_cPassword);
         btnReg = (Button) findViewById(R.id.button_signup);
-        btnViewAllData = (Button) findViewById(R.id.button_viewAllData);
+      //  btnViewAllData = (Button) findViewById(R.id.button_viewAllData);
 
 
     }
@@ -44,7 +44,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         initView();
 
         btnReg.setOnClickListener(this);
-        btnViewAllData.setOnClickListener(this);
+        //btnViewAllData.setOnClickListener(this);
 
 
     }
@@ -106,7 +106,8 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             }
 
         }
-        public void getAll(){
+
+    /*public void getAll(){
 
             Cursor res = myDb.getAllData();
             if(res.getCount()==0){
@@ -143,7 +144,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         builder.setMessage(message);
         builder.show();
     }
-
+    */
 
             @Override
             public void onClick (View v){
@@ -157,9 +158,9 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                         AddData();
                         break;
 
-                    case R.id.button_viewAllData:
+                    /*case R.id.button_viewAllData:
                         getAll();
-                        break;
+                        break; */
 
 
 

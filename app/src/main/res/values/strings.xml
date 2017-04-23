@@ -4,23 +4,20 @@
     <string name="password">Password</string>
     <string name="username">Username</string>
     <string name="DataManagement">DATA MANAGEMENT</string>
-    <string name="textRegister">Not registered yet?</string>
+    <string name="textRegister">Not registered? Signup !</string>
     <string name="textview_signup">Signup</string>
-    <string name="textview_name">Name</string>
-    <string name="textview_surname">Surname</string>
-    <string name="textview_address">Address</string>
-    <string name="textview_mobno">Mobile No.</string>
-    <string name="button_signup">Register</string>
-    <string name="button_viewAllData">View Data</string>
-    <string name="textview_email">Email</string>
-    <string name="textview_password">Password</string>
-    <string name="textview_cPassword">Confirm Password</string>
+    <string name="edittext_name">Name</string>
+    <string name="button_register">Register</string>
+    <string name="button_signup">Signup</string>
+    <!--<string name="button_viewAllData">View Data</string>-->
+    <string name="edittext_email">Email</string>
+    <string name="edittext_password">Password</string>
+    <string name="edittext_cPassword">Confirm Password</string>
     <string name="userScreen">You have entered user page</string>
     <string name="viewListData">view data</string>
     <string name="addListData">add new task</string>
     <string name="addtolistview">Add</string>
     <string name="cancelAdd">Cancel</string>
-
     <string name="Add">add</string>
     <string name="Cancel">cancel</string>
 

@@ -7,88 +7,90 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".activities.SignupActivity">
+    tools:context=".activities.SignupActivity"
+    android:background="#343642">
 
-    <TextView
-        android:id="@+id/textview_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/textview_name"
-        android:textSize="25dp"
-
-
-        />
-    <EditText
-        android:id="@+id/edittext_name"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/wrappername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textview_name"
-        android:padding="10dp"
-        android:paddingLeft="5dp"
-        android:inputType="text"
-        android:maxLines="1"
+        android:layout_marginTop="4dp">
+
+        <EditText
+            android:id="@+id/edittext_name"
+            android:hint="@string/edittext_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:padding="10dp"
+            android:paddingLeft="5dp"
+            android:inputType="text"
+            android:maxLines="1"
         />
 
-    <TextView
-        android:id="@+id/textview_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/edittext_name"
-        android:text="@string/textview_email"
-        android:padding="10dp"
-        android:textSize="25dp"
+    </android.support.design.widget.TextInputLayout>
 
-        />
-    <EditText
-        android:id="@+id/edittext_email"
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/wrapperemail"
+        android:layout_below="@+id/wrappername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textview_email"
-        android:padding="10dp"
-        android:paddingLeft="5dp"
-        android:inputType="textWebEmailAddress"
+        android:layout_marginTop="4dp">
+
+        <EditText
+            android:id="@+id/edittext_email"
+            android:hint="@string/edittext_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edittext_name"
+            android:padding="10dp"
+            android:paddingLeft="5dp"
+            android:inputType="textWebEmailAddress"
 
         />
 
-    <TextView
-        android:id="@+id/textview_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/edittext_email"
-        android:text="@string/textview_password"
-        android:padding="10dp"
-        android:textSize="25dp"
+    </android.support.design.widget.TextInputLayout>
 
-        />
-    <EditText
-        android:id="@+id/edittext_password"
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/wrapperpassword"
+        android:layout_below="@+id/wrapperemail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textview_password"
-        android:padding="10dp"
-        android:paddingLeft="5dp"
-        android:inputType="textPassword"
-        android:maxLines="1"
+        android:layout_marginTop="4dp">
+
+        <EditText
+            android:id="@+id/edittext_password"
+            android:hint="@string/edittext_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edittext_email"
+            android:padding="10dp"
+            android:paddingLeft="5dp"
+            android:inputType="textPassword"
+            android:maxLines="1"
         />
 
-    <TextView
-        android:id="@+id/textview_cPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/edittext_password"
-        android:text="@string/textview_cPassword"
-        android:padding="10dp"
-        android:textSize="25dp"
+    </android.support.design.widget.TextInputLayout>
 
-
-        />
-    <EditText
-        android:id="@+id/edittext_cPassword"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/wrappercpassword"
+        android:layout_below="@+id/wrapperpassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textview_cPassword"
-        android:inputType="textPassword"
-        android:maxLines="1"/>
+        android:layout_marginTop="4dp">
+
+        <EditText
+            android:id="@+id/edittext_cPassword"
+            android:hint="@string/edittext_cPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edittext_password"
+            android:inputType="textPassword"
+            android:maxLines="1"/>
+
+    </android.support.design.widget.TextInputLayout>
 
 
     <Button
@@ -96,32 +98,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="@string/button_signup"
+        android:text="@string/button_register"
         android:textSize="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="80dp"
-        android:layout_marginRight="80dp"
-        android:layout_below="@+id/edittext_cPassword"
-        android:background="@color/buttonColor"
+        android:layout_marginTop="80dp"
+        android:layout_below="@+id/wrappercpassword"
+        android:background="@drawable/roundedbutton"
 
 
         />
 
-    <Button
-        android:id="@+id/button_viewAllData"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="@string/button_viewAllData"
-        android:textSize="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="80dp"
-        android:layout_marginRight="80dp"
-        android:layout_below="@+id/button_signup"
-        android:background="@color/buttonColor"
-
-
-        />
 
 
 
