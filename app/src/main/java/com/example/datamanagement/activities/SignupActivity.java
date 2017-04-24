@@ -1,6 +1,8 @@
 package com.example.datamanagement.activities;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import com.example.datamanagement.helper.DatabaseHelper;
 import com.example.datamanagement.R;
 
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener {
+
 
     DatabaseHelper myDb;
     EditText editTextName, editTextEmail, editTextPassword, editTextCpassword;
@@ -46,6 +49,52 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
         btnReg.setOnClickListener(this);
         //btnViewAllData.setOnClickListener(this);
+
+
+    }
+
+    public void accountExistsDialog(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Account Registration");
+        builder.setMessage("Account already exists under that email");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                SignupActivity.this.finish();
+
+            }
+        });
+        builder.show();
+
+
+    }
+
+    public void backToLoginPage(){
+
+        Intent intent = new Intent(this,LoginActivity.class);
+        startActivity(intent);
+    }
+
+
+
+
+
+    public void accountCreatedDialog(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Account Registration");
+        builder.setMessage("Your account has been succesfully created");
+        builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                backToLoginPage();
+                SignupActivity.this.finish();
+
+            }
+        });
+        builder.show();
 
 
     }
@@ -89,23 +138,30 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                         contact.setEmail(email1);
                         contact.setPassword(password1);
 
+                        /*
                         boolean isInserted = myDb.insertData(contact);
 
 
                         if (isInserted) {
 
                             Toast.makeText(SignupActivity.this, "Data inserted", Toast.LENGTH_LONG).show();
+                            accountCreatedDialog();
                         } else {
                             Toast.makeText(SignupActivity.this, "Data not inserted", Toast.LENGTH_LONG).show();
                         }
+
+                        */
 
 
                         boolean duplicateDataChecked = myDb.checkDuplicateEntries(contact);
 
                         if (duplicateDataChecked) {
-                            Toast.makeText(SignupActivity.this, "Account created", Toast.LENGTH_LONG).show();
+                            accountCreatedDialog();
+                            //Toast.makeText(SignupActivity.this, "Account has been created", Toast.LENGTH_LONG).show();
+
                         } else {
-                            Toast.makeText(SignupActivity.this, "Account under that username already created", Toast.LENGTH_LONG).show();
+                            accountExistsDialog();
+                            //Toast.makeText(SignupActivity.this, "Account under that username already created", Toast.LENGTH_LONG).show();
                         }
 
 

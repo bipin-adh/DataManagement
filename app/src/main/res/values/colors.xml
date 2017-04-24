@@ -5,5 +5,6 @@
     <color name="colorAccent">#ce1b58</color>
     <color name="buttonColor">#F26520</color>
     <color name="textColor">#757575</color>
-    <color name="appBarColor">#4d5263</color>
+    <color name="appBarColor">#d71d33</color>
+    <color name="backgroundColor">#343642</color>
 </resources>

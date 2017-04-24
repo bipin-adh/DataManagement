@@ -83,7 +83,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean checkDuplicateEntries(Contact c){
 
-        boolean success= false;
+        boolean success = false;
         SQLiteDatabase db = this.getWritableDatabase();
         // write data to database table
         ContentValues contentValues = new ContentValues();
@@ -96,7 +96,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             success = true;
         }catch (SQLException e){
             e.printStackTrace();
-            success =false;
             //Toast.makeText(signupActivity.this, "Account already exists on that username", Toast.LENGTH_LONG).show();
 
         }
@@ -105,6 +104,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     }
+    /*
+    // check whether data is added to database or not
 
     public boolean insertData(Contact c) {
 
@@ -125,6 +126,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
 
     }
+    */
 
     public boolean insertListData(Task task){
 

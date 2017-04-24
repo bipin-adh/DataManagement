@@ -21,5 +21,7 @@
     <string name="Add">add</string>
     <string name="Cancel">cancel</string>
 
+    <string name="logout_menu">logout</string>
+
 
 </resources>

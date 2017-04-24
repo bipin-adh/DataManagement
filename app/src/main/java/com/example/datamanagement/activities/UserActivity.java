@@ -1,11 +1,16 @@
 package com.example.datamanagement.activities;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -71,8 +76,76 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
 
         toolbar =(Toolbar)findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
+
         getSupportActionBar().setTitle(userActive);
+
+
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.actionbar_menu,menu);
+        return true;
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+
+        int id = item.getItemId();
+
+        switch (id){
+
+            case R.id.activity_user_logout :
+                logoutUser();
+                break;
+        }
+        return true;
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        UserActivity.this.finish();
+        super.onBackPressed();
+    }
+
+    //for logout button
+    public void backToLoginPage(){
+
+        Intent intent = new Intent(this,LoginActivity.class);
+        startActivity(intent);
+    }
+
+
+
+    public void logoutUser(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle("Logout");
+        builder.setMessage("Are you sure you want to logout ?");
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                backToLoginPage();
+                UserActivity.this.finish();
+            }
+        });
+
+
+        builder.setNegativeButton("Cancel",null);
+
+
+
+        builder.show();
+
+
+    }
+
     private void showDialog(){
         Log.d(TAG, "showDialog: after fabbutton click");
 
