@@ -148,6 +148,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean updateData(Task task){
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+        Log.d(TAG,"Task Name:" + task.getTaskName());
         contentValues.put(COL_ID, task.getId());
         contentValues.put(COL_TASK_NAME,task.getTaskName());
         contentValues.put(COL_TASK_STATUS, task.isChecked()?1:0);

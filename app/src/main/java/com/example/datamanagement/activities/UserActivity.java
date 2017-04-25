@@ -240,7 +240,7 @@ public class UserActivity extends AppCompatActivity implements CustomAdapter.Che
     @Override
     public void onCheckBoxTick(Task task, boolean isChecked) {
 
-        Log.d(TAG, "onCheckBoxTick: now pass data to database for update");
+        Log.d(TAG, "onCheckBoxTick:" + task.getTaskName());
 
         task = task.setChecked(isChecked);
         
@@ -250,7 +250,6 @@ public class UserActivity extends AppCompatActivity implements CustomAdapter.Che
         if(uiUpdated){
             Toast.makeText(UserActivity.this, "database updated", Toast.LENGTH_LONG).show();
             refreshData();
-            dialogFragment.dismiss();
 
         }else{
             Toast.makeText(UserActivity.this, "error updating database", Toast.LENGTH_LONG).show();
