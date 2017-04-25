@@ -7,9 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.example.datamanagement.activities.SignupActivity;
 import com.example.datamanagement.model.Contact;
 import com.example.datamanagement.model.Task;
 
@@ -131,31 +129,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     */
 
     public boolean updateListData(Task task){
-
-
-
         Log.d(TAG, "updateListData: inside update database ");
         SQLiteDatabase db =this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-
+        contentValues.put(COL_ID, task.getId());
         contentValues.put(COL_TASK_NAME,task.getTaskName());
         contentValues.put(COL_TASK_STATUS, task.isChecked()?1:0);
         contentValues.put(COL_TASK_USER, task.getTaskUser());
-
-
-
         db.update(TABLE_LIST, contentValues ,COL_TASK_STATUS +" = ?", new String[]{String.valueOf(task.isChecked())});
-
         long result =  db.insert(TABLE_LIST, null, contentValues);
         db.close();
         if (result == -1)
             return false;
         else
             return true;
+    }
 
+    public boolean updateData(Task task){
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_ID, task.getId());
+        contentValues.put(COL_TASK_NAME,task.getTaskName());
+        contentValues.put(COL_TASK_STATUS, task.isChecked()?1:0);
+        contentValues.put(COL_TASK_USER, task.getTaskUser());
 
-
-
+        long result = database.update(TABLE_LIST,contentValues,COL_ID+"="+task.getId(),null);
+        database.close();
+        if (result == -1)
+            return false;
+        else
+            return true;
     }
 
     public boolean insertListData(Task task){

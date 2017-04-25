@@ -1,24 +1,22 @@
 package com.example.datamanagement.activities;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
-import com.example.datamanagement.fragment.AddToListDialogFragment;
+
 import com.example.datamanagement.R;
 import com.example.datamanagement.adapter.CustomAdapter;
-
+import com.example.datamanagement.fragment.AddToListDialogFragment;
 import com.example.datamanagement.helper.DatabaseHelper;
 import com.example.datamanagement.model.Task;
 
@@ -246,11 +244,12 @@ public class UserActivity extends AppCompatActivity implements CustomAdapter.Che
 
         task = task.setChecked(isChecked);
         
-        boolean uiUpdated = myDb.updateListData(task);
+        boolean uiUpdated = myDb.updateData(task);
         Log.d(TAG, "onCheckBoxTick: database updated");
         
         if(uiUpdated){
             Toast.makeText(UserActivity.this, "database updated", Toast.LENGTH_LONG).show();
+            refreshData();
             dialogFragment.dismiss();
 
         }else{

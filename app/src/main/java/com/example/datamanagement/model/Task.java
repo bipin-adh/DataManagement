@@ -5,9 +5,18 @@ package com.example.datamanagement.model;
  */
 
 public class Task {
+    int id;
     String taskName;
     String taskUser;
     boolean isChecked;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public boolean isChecked()
 
