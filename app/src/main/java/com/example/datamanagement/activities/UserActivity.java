@@ -28,7 +28,7 @@ import java.util.List;
 
 
 
-public class UserActivity extends AppCompatActivity implements View.OnClickListener,AddToListDialogFragment.DataEnteredListener {
+public class UserActivity extends AppCompatActivity implements CustomAdapter.CheckboxListener,View.OnClickListener,AddToListDialogFragment.DataEnteredListener {
 
 
     private Toolbar toolbar;
@@ -36,21 +36,29 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
     public static final String EXTRA_USER = "user_id";
     FloatingActionButton fab;
     DatabaseHelper myDb;
-    CustomAdapter customAdapter;
     List<Task> taskList;
     ListView listView;
 //    EditText editText;
     AddToListDialogFragment dialogFragment;
+    CustomAdapter customAdapter;
+    CustomAdapter.CheckboxListener checkboxListener;
     public String userActive;
+
+
+
+
 
 
 
     public void initView(){
 
         fab = (FloatingActionButton)findViewById(R.id.fab_addtask);
+        checkboxListener = (CustomAdapter.CheckboxListener) this;
+
 
 //        editText =(EditText)findViewById(R.id.edittext_listdata);
           }
+
 
     @Override
     public void OnDataEntered(String enteredData){
@@ -219,7 +227,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         Log.d(TAG, "viewListData");
         listView = (ListView)findViewById(R.id.listViewData);
         taskList = new ArrayList<>();
-        customAdapter = new CustomAdapter(this,taskList);
+        customAdapter = new CustomAdapter(this,taskList,checkboxListener);
         listView.setAdapter(customAdapter);
 
         taskList = myDb.getTasks(userActive);
@@ -229,5 +237,27 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         }else{
             Toast.makeText(UserActivity.this, "database empty", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onCheckBoxTick(Task task, boolean isChecked) {
+
+        Log.d(TAG, "onCheckBoxTick: now pass data to database for update");
+
+        task = task.setChecked(isChecked);
+        
+        boolean uiUpdated = myDb.updateListData(task);
+        Log.d(TAG, "onCheckBoxTick: database updated");
+        
+        if(uiUpdated){
+            Toast.makeText(UserActivity.this, "database updated", Toast.LENGTH_LONG).show();
+            dialogFragment.dismiss();
+
+        }else{
+            Toast.makeText(UserActivity.this, "error updating database", Toast.LENGTH_LONG).show();
+        }
+
+
+
     }
 }

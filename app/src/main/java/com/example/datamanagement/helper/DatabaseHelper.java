@@ -81,6 +81,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+
+
     public boolean checkDuplicateEntries(Contact c){
 
         boolean success = false;
@@ -127,6 +129,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
     */
+
+    public boolean updateListData(Task task){
+
+
+
+        Log.d(TAG, "updateListData: inside update database ");
+        SQLiteDatabase db =this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(COL_TASK_NAME,task.getTaskName());
+        contentValues.put(COL_TASK_STATUS, task.isChecked()?1:0);
+        contentValues.put(COL_TASK_USER, task.getTaskUser());
+
+
+
+        db.update(TABLE_LIST, contentValues ,COL_TASK_STATUS +" = ?", new String[]{String.valueOf(task.isChecked())});
+
+        long result =  db.insert(TABLE_LIST, null, contentValues);
+        db.close();
+        if (result == -1)
+            return false;
+        else
+            return true;
+
+
+
+
+    }
 
     public boolean insertListData(Task task){
 
@@ -227,6 +257,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         db.close();
         return  taskList;
+
     }
+
+
+
 
 }

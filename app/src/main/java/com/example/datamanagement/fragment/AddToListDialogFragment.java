@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.datamanagement.R;
+import com.example.datamanagement.model.Task;
 
 
 public class AddToListDialogFragment extends DialogFragment implements View.OnClickListener  {
@@ -26,6 +27,7 @@ public class AddToListDialogFragment extends DialogFragment implements View.OnCl
         //EditText editTextAddToList;
 
     public interface DataEnteredListener {
+
 
         void OnDataEntered(String string);
 

@@ -15,10 +15,11 @@ public class Task {
         return isChecked;
     }
 
-    public void setChecked(boolean checked)
+    public Task setChecked(boolean checked)
 
     {
         isChecked = checked;
+        return null;
     }
 
     public String getTaskName()
