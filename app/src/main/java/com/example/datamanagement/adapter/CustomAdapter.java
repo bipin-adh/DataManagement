@@ -75,11 +75,11 @@ public class CustomAdapter extends ArrayAdapter{
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-//                if(isChecked) {
-//                    name.setPaintFlags(name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-//                }else{
-//                    name.setPaintFlags(name.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
-//                }
+                if(isChecked) {
+                    name.setPaintFlags(name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                }else{
+                    name.setPaintFlags(name.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+                }
                 Log.d(TAG, "onCheckChanged:"+ task.getTaskName());
                 checkboxListener.onCheckBoxTick(task,isChecked);
 

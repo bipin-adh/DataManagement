@@ -128,39 +128,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     */
 
-    public boolean updateListData(Task task){
-        Log.d(TAG, "updateListData: inside update database ");
-        SQLiteDatabase db =this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_ID, task.getId());
-        contentValues.put(COL_TASK_NAME,task.getTaskName());
-        contentValues.put(COL_TASK_STATUS, task.isChecked()?1:0);
-        contentValues.put(COL_TASK_USER, task.getTaskUser());
-        db.update(TABLE_LIST, contentValues ,COL_TASK_STATUS +" = ?", new String[]{String.valueOf(task.isChecked())});
-        long result =  db.insert(TABLE_LIST, null, contentValues);
-        db.close();
-        if (result == -1)
-            return false;
-        else
-            return true;
-    }
 
-    public boolean updateData(Task task){
+    public void updateData(Task task){
+
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        Log.d(TAG,"Task Name:" + task.getTaskName());
+         Log.d(TAG,"Task Name:task received");
+
+
         contentValues.put(COL_ID, task.getId());
         contentValues.put(COL_TASK_NAME,task.getTaskName());
         contentValues.put(COL_TASK_STATUS, task.isChecked()?1:0);
         contentValues.put(COL_TASK_USER, task.getTaskUser());
 
-        long result = database.update(TABLE_LIST,contentValues,COL_ID+"="+task.getId(),null);
+
+
+        database.update(TABLE_LIST,contentValues,COL_ID+"="+task.getId(),null);
+        Log.e(TAG, "updateData: i am here" );
         database.close();
-        if (result == -1)
-            return false;
-        else
-            return true;
-    }
+            }
 
     public boolean insertListData(Task task){
 
@@ -243,16 +229,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
             while(cursor.moveToNext()){
                 Task task = new Task();
+                int id = cursor.getInt(cursor.getColumnIndex(COL_ID));
+                Log.e(TAG, "DBhelper: " );
+
                 String name = cursor.getString(cursor.getColumnIndex(COL_TASK_NAME));
                 Log.e("DBHelper", name);
                 boolean isChecked = true;
                 int checkedStatus = cursor.getInt(cursor.getColumnIndex(COL_TASK_STATUS));
                 String user = cursor.getString(cursor.getColumnIndex(COL_TASK_USER));
+
                 Log.e("DBHelper", user);
                 Log.e(TAG, "getTasks: user" );
                 if(checkedStatus == 0){
                     isChecked = false;
                 }
+                task.setId(id);
                 task.setTaskName(name);
                 task.setChecked(isChecked);
                 task.setTaskUser(user);

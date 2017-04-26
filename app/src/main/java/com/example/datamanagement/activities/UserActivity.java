@@ -51,7 +51,7 @@ public class UserActivity extends AppCompatActivity implements CustomAdapter.Che
     public void initView(){
 
         fab = (FloatingActionButton)findViewById(R.id.fab_addtask);
-        checkboxListener = (CustomAdapter.CheckboxListener) this;
+        checkboxListener = this;
 
 
 //        editText =(EditText)findViewById(R.id.edittext_listdata);
@@ -242,18 +242,21 @@ public class UserActivity extends AppCompatActivity implements CustomAdapter.Che
 
         Log.d(TAG, "onCheckBoxTick:" + task.getTaskName());
 
-        task = task.setChecked(isChecked);
-        
-        boolean uiUpdated = myDb.updateData(task);
+        task.setChecked(isChecked);
+
+
+        myDb.updateData(task);
+
+       // boolean uiUpdated = myDb.updateData(task);
         Log.d(TAG, "onCheckBoxTick: database updated");
         
-        if(uiUpdated){
+        /*if(uiUpdated){
             Toast.makeText(UserActivity.this, "database updated", Toast.LENGTH_LONG).show();
             refreshData();
 
         }else{
             Toast.makeText(UserActivity.this, "error updating database", Toast.LENGTH_LONG).show();
-        }
+        }*/
 
 
 
