@@ -246,7 +246,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // "SELECT * FROM " + TABLE_MESSAGE + " WHERE " + MESSAGE_USERNAME + " = " + username
         //"select * from " + TABLE_LIST + " where " + COL_TASK_USER + " = " + activeUser
         if(cursor.getCount()==0){
-            taskList = null;
+            db.close();
+            return taskList;
         }else{
 
             while(cursor.moveToNext()){
@@ -271,10 +272,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 task.setTaskUser(user);
                 taskList.add(task);
             }
+            db.close();
+            return  taskList;
         }
-        db.close();
-        return  taskList;
-
     }
 
 

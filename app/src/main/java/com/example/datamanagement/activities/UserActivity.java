@@ -13,11 +13,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.datamanagement.R;
-
 import com.example.datamanagement.adapter.RecyclerViewAdapter;
 import com.example.datamanagement.fragment.AddToListDialogFragment;
 import com.example.datamanagement.helper.DatabaseHelper;
@@ -27,41 +25,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+public class UserActivity extends AppCompatActivity implements RecyclerViewAdapter.ImageviewListener, RecyclerViewAdapter.CheckboxListener, View.OnClickListener, AddToListDialogFragment.DataEnteredListener {
 
-
-public class UserActivity extends AppCompatActivity implements RecyclerViewAdapter.ImageviewListener,RecyclerViewAdapter.CheckboxListener,View.OnClickListener,AddToListDialogFragment.DataEnteredListener {
-
-    RecyclerView mRecyclerView;
-    private RecyclerViewAdapter mAdapter;
-    private LinearLayoutManager mLayoutManager;
-
-
-    private Toolbar toolbar;
-    private static final String TAG = UserActivity.class.getSimpleName();
     public static final String EXTRA_USER = "user_id";
+    private static final String TAG = UserActivity.class.getSimpleName();
+    public String userActive;
+    RecyclerView mRecyclerView;
     FloatingActionButton fab;
     DatabaseHelper myDb;
     List<Task> taskList;
-
-//    EditText editText;
+    //    EditText editText;
     AddToListDialogFragment dialogFragment;
-
     RecyclerViewAdapter.CheckboxListener checkboxListener;
-    public String userActive;
     RecyclerViewAdapter.ImageviewListener imageviewListener;
+    private RecyclerViewAdapter mAdapter;
+    private LinearLayoutManager mLayoutManager;
+    private Toolbar toolbar;
 
+    public void initView() {
 
-
-
-
-
-
-    public void initView(){
-
-        fab = (FloatingActionButton)findViewById(R.id.fab_addtask);
+        fab = (FloatingActionButton) findViewById(R.id.fab_addtask);
         fab.setOnClickListener(this);
-        mRecyclerView = (RecyclerView)findViewById(R.id.my_recycler_view);
-        mLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
@@ -70,20 +56,19 @@ public class UserActivity extends AppCompatActivity implements RecyclerViewAdapt
 
 
 //        editText =(EditText)findViewById(R.id.edittext_listdata);
-          }
+    }
 
-    public void setToolbar(){
+    public void setToolbar() {
 
-        toolbar =(Toolbar)findViewById(R.id.my_toolbar);
+        toolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(userActive);
-
 
 
     }
 
     @Override
-    public void OnDataEntered(String enteredData){
+    public void OnDataEntered(String enteredData) {
         Log.d(TAG, "OnDataEntered:" + enteredData);
         addListData(enteredData);
     }
@@ -104,24 +89,24 @@ public class UserActivity extends AppCompatActivity implements RecyclerViewAdapt
 
         setToolbar();
 
-            }
+    }
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.actionbar_menu,menu);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.actionbar_menu, menu);
         return true;
 
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
 
-        switch (id){
+        switch (id) {
 
-            case R.id.activity_user_logout :
+            case R.id.activity_user_logout:
                 logoutUser();
                 break;
         }
@@ -136,15 +121,14 @@ public class UserActivity extends AppCompatActivity implements RecyclerViewAdapt
     }
 
     //for logout button
-    public void backToLoginPage(){
+    public void backToLoginPage() {
 
-        Intent intent = new Intent(this,LoginActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 
 
-
-    public void logoutUser(){
+    public void logoutUser() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
@@ -161,8 +145,7 @@ public class UserActivity extends AppCompatActivity implements RecyclerViewAdapt
         });
 
 
-        builder.setNegativeButton("Cancel",null);
-
+        builder.setNegativeButton("Cancel", null);
 
 
         builder.show();
@@ -170,11 +153,11 @@ public class UserActivity extends AppCompatActivity implements RecyclerViewAdapt
 
     }
 
-    private void showDialog(){
+    private void showDialog() {
         Log.d(TAG, "showDialog: after fabbutton click");
 
         dialogFragment = new AddToListDialogFragment();
-        dialogFragment.show(UserActivity.this.getFragmentManager(),"AddToListFragment");
+        dialogFragment.show(UserActivity.this.getFragmentManager(), "AddToListFragment");
 
     }
 
@@ -183,7 +166,7 @@ public class UserActivity extends AppCompatActivity implements RecyclerViewAdapt
 
         int id = v.getId();
 
-        switch (id){
+        switch (id) {
 
             case R.id.fab_addtask:
                 Log.d(TAG, "onClick: inside fabaddtask");
@@ -193,8 +176,8 @@ public class UserActivity extends AppCompatActivity implements RecyclerViewAdapt
 
 
             //case R.id.viewListData:
-                //viewListData();
-              //  break;
+            //viewListData();
+            //  break;
         }
 
     }
@@ -214,13 +197,12 @@ public class UserActivity extends AppCompatActivity implements RecyclerViewAdapt
 
     private void refreshData() {
         taskList = myDb.getTasks(userActive);
-
         mAdapter.getData().clear();
         mAdapter.getData().addAll(taskList);
         mAdapter.notifyDataSetChanged();
     }
 
-    public void AddData(String newEntry){
+    public void AddData(String newEntry) {
         Task task = new Task();
         task.setTaskName(newEntry);
         task.setChecked(false);
@@ -228,32 +210,31 @@ public class UserActivity extends AppCompatActivity implements RecyclerViewAdapt
 
         boolean insertData = myDb.insertListData(task);
 
-        if(insertData){
+        if (insertData) {
             Toast.makeText(UserActivity.this, "data inserted successfully", Toast.LENGTH_LONG).show();
             dialogFragment.dismiss();
 
-        }else{
+        } else {
             Toast.makeText(UserActivity.this, "error inserting data", Toast.LENGTH_LONG).show();
         }
 
 
-
     }
 
-    public void viewListData(){
+    public void viewListData() {
         Log.d(TAG, "viewListData");
 
 
         //listView = (ListView)findViewById(R.id.listViewData);
         taskList = new ArrayList<>();
-        mAdapter = new RecyclerViewAdapter(this,taskList,checkboxListener,imageviewListener);
+        mAdapter = new RecyclerViewAdapter(this, taskList, checkboxListener, imageviewListener);
         mRecyclerView.setAdapter(mAdapter);
 
         taskList = myDb.getTasks(userActive);
 
-        if(taskList!=null && taskList.size()>0){
+        if (taskList != null && taskList.size() > 0) {
             refreshData();
-        }else{
+        } else {
             Toast.makeText(UserActivity.this, "database empty", Toast.LENGTH_SHORT).show();
         }
     }
@@ -268,7 +249,7 @@ public class UserActivity extends AppCompatActivity implements RecyclerViewAdapt
 
         myDb.updateData(task);
 
-       // boolean uiUpdated = myDb.updateData(task);
+        // boolean uiUpdated = myDb.updateData(task);
         Log.d(TAG, "onCheckBoxTick: database updated");
         
         /*if(uiUpdated){
@@ -280,20 +261,19 @@ public class UserActivity extends AppCompatActivity implements RecyclerViewAdapt
         }*/
 
 
-
     }
 
     @Override
-    public void onDeleteIconClick(Task task){
+    public void onDeleteIconClick(Task task) {
 
-        Log.d(TAG, "onDeleteIconClick: "+task.getTaskName());
+        Log.d(TAG, "onDeleteIconClick: " + task.getTaskName());
 
         boolean isdatadeleted = myDb.deleteData(task);
-        if(isdatadeleted){
+        if (isdatadeleted) {
 
             refreshData();
             Toast.makeText(UserActivity.this, "deleted", Toast.LENGTH_LONG).show();
-        }else{
+        } else {
             Toast.makeText(UserActivity.this, "not deleted", Toast.LENGTH_LONG).show();
         }
 
