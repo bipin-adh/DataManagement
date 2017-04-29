@@ -148,6 +148,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         database.close();
             }
 
+    public boolean deleteData(Task task){
+
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        Log.d(TAG, "deleteData: task received");
+
+
+        contentValues.put(COL_ID, task.getId());
+        contentValues.put(COL_TASK_NAME,task.getTaskName());
+        contentValues.put(COL_TASK_STATUS, task.isChecked()?1:0);
+        contentValues.put(COL_TASK_USER, task.getTaskUser());
+
+        //String query = "DELETE FROM " + TABLE_LIST + "WHERE" + COL_ID + "= '"+task.getId()+"' ";
+        return database.delete(TABLE_LIST,COL_ID + "=" +task.getId(),null)>0;
+        //database.delete(TABLE_LIST,COL_ID +"=?", new String[]{String.valueOf(task)});
+        //database.execSQL(query);
+
+
+
+
+    }
+
     public boolean insertListData(Task task){
 
         SQLiteDatabase db = this.getWritableDatabase();

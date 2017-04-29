@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -15,7 +17,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.datamanagement.R;
-import com.example.datamanagement.adapter.CustomAdapter;
+
+import com.example.datamanagement.adapter.RecyclerViewAdapter;
 import com.example.datamanagement.fragment.AddToListDialogFragment;
 import com.example.datamanagement.helper.DatabaseHelper;
 import com.example.datamanagement.model.Task;
@@ -26,7 +29,11 @@ import java.util.List;
 
 
 
-public class UserActivity extends AppCompatActivity implements CustomAdapter.CheckboxListener,View.OnClickListener,AddToListDialogFragment.DataEnteredListener {
+public class UserActivity extends AppCompatActivity implements RecyclerViewAdapter.ImageviewListener,RecyclerViewAdapter.CheckboxListener,View.OnClickListener,AddToListDialogFragment.DataEnteredListener {
+
+    RecyclerView mRecyclerView;
+    private RecyclerViewAdapter mAdapter;
+    private LinearLayoutManager mLayoutManager;
 
 
     private Toolbar toolbar;
@@ -35,12 +42,13 @@ public class UserActivity extends AppCompatActivity implements CustomAdapter.Che
     FloatingActionButton fab;
     DatabaseHelper myDb;
     List<Task> taskList;
-    ListView listView;
+
 //    EditText editText;
     AddToListDialogFragment dialogFragment;
-    CustomAdapter customAdapter;
-    CustomAdapter.CheckboxListener checkboxListener;
+
+    RecyclerViewAdapter.CheckboxListener checkboxListener;
     public String userActive;
+    RecyclerViewAdapter.ImageviewListener imageviewListener;
 
 
 
@@ -51,12 +59,28 @@ public class UserActivity extends AppCompatActivity implements CustomAdapter.Che
     public void initView(){
 
         fab = (FloatingActionButton)findViewById(R.id.fab_addtask);
+        fab.setOnClickListener(this);
+        mRecyclerView = (RecyclerView)findViewById(R.id.my_recycler_view);
+        mLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(mAdapter);
         checkboxListener = this;
+        imageviewListener = this;
 
 
 //        editText =(EditText)findViewById(R.id.edittext_listdata);
           }
 
+    public void setToolbar(){
+
+        toolbar =(Toolbar)findViewById(R.id.my_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(userActive);
+
+
+
+    }
 
     @Override
     public void OnDataEntered(String enteredData){
@@ -68,25 +92,19 @@ public class UserActivity extends AppCompatActivity implements CustomAdapter.Che
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-
         //String userActive;
         userActive = getIntent().getStringExtra(EXTRA_USER);
         Log.d(TAG, "onCreate: userActive  " + userActive);
 
         myDb = new DatabaseHelper(this);
         initView();
+        Log.d(TAG, "onCreate:after initview ");
+
         viewListData();
 
+        setToolbar();
 
-        fab.setOnClickListener(this);
-
-        toolbar =(Toolbar)findViewById(R.id.my_toolbar);
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setTitle(userActive);
-
-
-    }
+            }
 
 
     @Override
@@ -196,9 +214,10 @@ public class UserActivity extends AppCompatActivity implements CustomAdapter.Che
 
     private void refreshData() {
         taskList = myDb.getTasks(userActive);
-        customAdapter.getData().clear();
-        customAdapter.getData().addAll(taskList);
-        customAdapter.notifyDataSetChanged();
+
+        mAdapter.getData().clear();
+        mAdapter.getData().addAll(taskList);
+        mAdapter.notifyDataSetChanged();
     }
 
     public void AddData(String newEntry){
@@ -223,10 +242,12 @@ public class UserActivity extends AppCompatActivity implements CustomAdapter.Che
 
     public void viewListData(){
         Log.d(TAG, "viewListData");
-        listView = (ListView)findViewById(R.id.listViewData);
+
+
+        //listView = (ListView)findViewById(R.id.listViewData);
         taskList = new ArrayList<>();
-        customAdapter = new CustomAdapter(this,taskList,checkboxListener);
-        listView.setAdapter(customAdapter);
+        mAdapter = new RecyclerViewAdapter(this,taskList,checkboxListener,imageviewListener);
+        mRecyclerView.setAdapter(mAdapter);
 
         taskList = myDb.getTasks(userActive);
 
@@ -258,6 +279,23 @@ public class UserActivity extends AppCompatActivity implements CustomAdapter.Che
             Toast.makeText(UserActivity.this, "error updating database", Toast.LENGTH_LONG).show();
         }*/
 
+
+
+    }
+
+    @Override
+    public void onDeleteIconClick(Task task){
+
+        Log.d(TAG, "onDeleteIconClick: "+task.getTaskName());
+
+        boolean isdatadeleted = myDb.deleteData(task);
+        if(isdatadeleted){
+
+            refreshData();
+            Toast.makeText(UserActivity.this, "deleted", Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(UserActivity.this, "not deleted", Toast.LENGTH_LONG).show();
+        }
 
 
     }
