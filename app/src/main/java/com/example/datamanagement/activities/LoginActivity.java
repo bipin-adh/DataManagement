@@ -1,9 +1,8 @@
 package com.example.datamanagement.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
@@ -12,8 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.datamanagement.helper.DatabaseHelper;
 import com.example.datamanagement.R;
+import com.example.datamanagement.helper.DatabaseHelper;
 
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
@@ -21,34 +20,34 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     DatabaseHelper myDb = new DatabaseHelper(this);
 
     Button btnlogin;
-    Button btnSignup;
+    //Button btnSignup;
+
+    TextView textViewSignup;
 
     EditText editTextEnteredLogin;
     EditText editTextEnteredPassword;
 
     public void initView() {
-        btnlogin = (Button) findViewById(R.id.button_login);
-        btnSignup =(Button) findViewById(R.id.button_signup);
 
+        btnlogin = (Button) findViewById(R.id.button_login);
+        //btnSignup =(Button) findViewById(R.id.button_signup);
+        textViewSignup = (TextView)findViewById(R.id.textview_signup);
 
         editTextEnteredLogin = (EditText) findViewById(R.id.edittext_loginusername);
         editTextEnteredPassword = (EditText) findViewById(R.id.edittext_loginpassword);
+
+        btnlogin.setOnClickListener(this);
+        //btnSignup.setOnClickListener(this);
+        textViewSignup.setOnClickListener(this);
 
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
         initView();
-
-
-        btnlogin.setOnClickListener(this);
-        btnSignup.setOnClickListener(this);
-
-        //txtviewSignup.setOnClickListener(this);
-
-
 
     }
 
@@ -91,6 +90,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                     } else {
                         Toast.makeText(LoginActivity.this, "login failed. password is incorrect", Toast.LENGTH_LONG).show();
+                        editTextEnteredPassword.setText("");
 
                     }
 
@@ -122,7 +122,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 enterLogin();
                 break;
 
-            case R.id.button_signup:
+            case R.id.textview_signup:
                 enterSignupPage();
                 break;
         }

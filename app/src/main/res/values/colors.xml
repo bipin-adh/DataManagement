@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#282929</color>
+    <!--<color name="colorPrimary">#282929</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#ce1b58</color>
-    <color name="buttonColor">#F26520</color>
+    <color name="colorAccent">#d9071c</color>-->
     <color name="textColor">#757575</color>
-    <color name="appBarColor">#d71d33</color>
-    <color name="backgroundColor">#343642</color>
+    <color name="appBarColor">#212121</color>
+    <color name="backgroundColor">#303030</color>
     <color name="white">#ffffff</color>
+    <color name="statusBarColor">#000000</color>
+    <color name="dialog_CardsColor">#424242</color>
+
+    <color name="colorPrimary">#000000</color>
+    <color name="colorSecondary1">#455A64</color>
+    <color name="colorSecondary2">#90A4AE</color>
+    <color name="colorSecondary3">#263238</color>
+
+    <color name="colorPrimaryDark">#212121</color>
+    <color name="colorAccent">#303030</color>
+    <color name="error_color">#e20c0c</color>
+
 
 </resources>

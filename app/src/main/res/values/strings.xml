@@ -4,8 +4,8 @@
     <string name="password">Password</string>
     <string name="username">Username</string>
     <string name="DataManagement">DATA MANAGEMENT</string>
-    <string name="textRegister">Not registered? Signup !</string>
-    <string name="textview_signup">Signup</string>
+    <string name="textRegister">Not registered yet?</string>
+    <string name="textview_signup"><u>Signup</u></string>
     <string name="edittext_name">Name</string>
     <string name="button_register">Register</string>
     <string name="button_signup">Signup</string>
@@ -22,6 +22,8 @@
     <string name="Cancel">cancel</string>
 
     <string name="logout_menu">logout</string>
+    <string name="backtologin">Already a member?</string>
+    <string name="textviewsignin"><u>Signin</u></string>
 
 
 </resources>

@@ -25,7 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class UserActivity extends AppCompatActivity implements RecyclerViewAdapter.ImageviewListener, RecyclerViewAdapter.CheckboxListener, View.OnClickListener, AddToListDialogFragment.DataEnteredListener {
+public class UserActivity extends AppCompatActivity implements RecyclerViewAdapter.ImageviewListener,
+        RecyclerViewAdapter.CheckboxListener, View.OnClickListener,
+        AddToListDialogFragment.DataEnteredListener {
 
     public static final String EXTRA_USER = "user_id";
     private static final String TAG = UserActivity.class.getSimpleName();
@@ -60,9 +62,12 @@ public class UserActivity extends AppCompatActivity implements RecyclerViewAdapt
 
     public void setToolbar() {
 
+        Log.d(TAG, "setToolbar: toolbar setting");
+
         toolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(userActive);
+        String titleForToolbar = myDb.nameOfUser(userActive);
+        getSupportActionBar().setTitle("Welcome " + titleForToolbar);
 
 
     }
@@ -196,17 +201,26 @@ public class UserActivity extends AppCompatActivity implements RecyclerViewAdapt
     }
 
     private void refreshData() {
+
+
         taskList = myDb.getTasks(userActive);
-        mAdapter.getData().clear();
-        mAdapter.getData().addAll(taskList);
-        mAdapter.notifyDataSetChanged();
+
+        if(taskList!=null){
+            mAdapter.getData().clear();
+            mAdapter.getData().addAll(taskList);
+            mAdapter.notifyDataSetChanged();
+        }
+
     }
 
     public void AddData(String newEntry) {
+
+
         Task task = new Task();
         task.setTaskName(newEntry);
         task.setChecked(false);
         task.setTaskUser(userActive);
+        Log.d(TAG, "AddData: add data");
 
         boolean insertData = myDb.insertListData(task);
 

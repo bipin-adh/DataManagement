@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.datamanagement.R;
-import com.example.datamanagement.model.Task;
 
 
 public class AddToListDialogFragment extends DialogFragment implements View.OnClickListener  {
@@ -71,6 +70,7 @@ public class AddToListDialogFragment extends DialogFragment implements View.OnCl
 
         initView(rootView);
 
+        getDialog().getWindow().setBackgroundDrawableResource(R.color.appBarColor);
         Log.d(TAG, "onCreateView: after initView");
         positiveButton.setOnClickListener(this);
         negativeButton.setOnClickListener(this);

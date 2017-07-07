@@ -58,44 +58,54 @@
 </android.support.design.widget.TextInputLayout>
 
 
-    <TextView
-        android:id="@+id/textview_register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/textRegister"
-        android:textSize="25dp"
-        android:layout_below="@+id/passwordwrapper"
-        android:padding="20dp"
-        android:paddingTop="40dp"
-        android:paddingBottom="40dp"
-        android:layout_marginTop="30dp"
-        android:layout_centerInParent="true"
-
-        />
-
-    <Button
-        android:id="@+id/button_signup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textview_register"
-        android:padding="10dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="20dp"
-        android:text="@string/button_signup"
-        android:textSize="20sp"
-        android:background="@drawable/roundedbutton"/>
-
     <Button
         android:id="@+id/button_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="5dp"
         android:text="@string/button_login"
-        android:textSize="20sp"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/button_signup"
-        android:background="@drawable/roundedbutton"
+        android:textSize="15sp"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_below="@+id/passwordwrapper"
+        android:background="@drawable/selector"
+
+
 
         />
+
+    <TextView
+        android:id="@+id/textview_registeralert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/textRegister"
+        android:textSize="20dp"
+        android:layout_below="@+id/button_login"
+        android:padding="20dp"
+        android:paddingTop="30dp"
+        android:paddingBottom="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_centerInParent="true"
+
+        />
+    <TextView
+        android:id="@+id/textview_signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/textview_signup"
+        android:textSize="20dp"
+        android:layout_below="@+id/textview_registeralert"
+        android:padding="10dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_centerInParent="true"
+
+
+
+        />
+
+
 
 </RelativeLayout>

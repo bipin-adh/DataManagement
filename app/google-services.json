@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "194561595027",
+    "firebase_url": "https://datamanagement-12add.firebaseio.com",
+    "project_id": "datamanagement-12add",
+    "storage_bucket": "datamanagement-12add.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:194561595027:android:1188802f05794c7f",
+        "android_client_info": {
+          "package_name": "com.example.datamanagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "194561595027-7ad0orvgme5p19ifhvuucheojar62mb7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.datamanagement",
+            "certificate_hash": "73aa68f41106eb52fbbb73dc796baa2f36e6c4e9"
+          }
+        },
+        {
+          "client_id": "194561595027-nu97m7he82g5af48isu21qr3lhttgg6m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBW5xpt8PUO28lGrXHufBWm7sIDj0Rsfis"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "194561595027-nu97m7he82g5af48isu21qr3lhttgg6m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

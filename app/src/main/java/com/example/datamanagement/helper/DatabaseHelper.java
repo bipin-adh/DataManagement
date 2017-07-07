@@ -220,17 +220,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public String nameOfUser(String emailFromLogin) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "select name from " + TABLE_USER + " where  email = '" + emailFromLogin + "' ";
+        Log.e(TAG, query);
+        Cursor cursor = db.rawQuery(query, null);
+
+        String titleForToolbar= null;
+        if (cursor.getCount() == 0) {
+           db.close();
+        } else {
+
+            while (cursor.moveToNext()) {
+                titleForToolbar = cursor.getString(cursor.getColumnIndex(COL_USER_NAME));
+               Log.e(TAG, "DBhelper: ");
+            }
+
+        }
+        db.close();
+        return titleForToolbar;
+    }
 
 
 
-    public Cursor getAllData(){
+
+/*    public Cursor getAllData(){
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from " + TABLE_USER, null);
         return res;
 
 
-    }
+    }   */
 
     public List<Task> getTasks(String activeUser){
 
